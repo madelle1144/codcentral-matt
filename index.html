@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Codcentral Grocery — Landing</title>
+
+  <!-- Tailwind CDN (for prototyping) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind custom config (colors, fonts)
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#e11d48', // pink-red used in example
+              dark: '#bf1640'
+            },
+            herobg: '#e7b84b' // mustard-ish
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Simple reset-ish and font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Subtle repeating decorative pattern */
+    .hero-pattern {
+      background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+    /* aspect ratio helper for older browsers */
+    .aspect-w-1 {
+      position: relative;
+    }
+    .aspect-w-1::before {
+      content: "";
+      display: block;
+      padding-top: 100%;
+    }
+    .aspect-w-1 > * {
+      position: absolute;
+      inset: 0;
+    }
+  </style>
+</head>
+<body class="antialiased text-gray-800 font-sans">
+
+  <!-- Top thin promo bar -->
+  <div class="bg-brand text-white text-sm">
+    <div class="max-w-7xl mx-auto px-4 flex items-center justify-between py-2">
+      <div>Get Up to 70% Discount Everyday</div>
+      <div class="hidden md:flex items-center space-x-4 text-xs opacity-90">
+        <span>Remote Agency, codcentral</span>
+        <span>work.codcentral@gmail.com</span>
+        <span> +254717883147</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Navbar -->
+  <header class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-6">
+        <a href="#" class="flex items-center gap-2">
+          <svg class="w-9 h-9 text-brand" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 6h18L20 20H4L3 6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 6v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="font-extrabold text-lg text-gray-800">Codcentral <span class="text-brand text-sm font-medium">Shopping</span></span>
+        </a>
+
+        <nav class="hidden lg:flex items-center space-x-6">
+          <a href="#" class="text-gray-700 hover:text-brand">Home</a>
+          <a href="#" class="text-gray-700 hover:text-brand">About Us</a>
+          <a href="#" class="text-gray-700 hover:text-brand">Shop</a>
+          <a href="#" class="text-gray-700 hover:text-brand">Blog</a>
+          <a href="#" class="text-gray-700 hover:text-brand">Contact</a>
+        </nav>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <div class="relative hidden md:block">
+          <input aria-label="search" class="border rounded-full pl-4 pr-10 py-2 w-56 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30" placeholder="Search Here..." />
+          <button class="absolute right-1 top-1/2 -translate-y-1/2 text-gray-500 p-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18A7.5 7.5 0 1 1 10.5 3a7.5 7.5 0 0 1 0 15z"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- cart -->
+        <button id="cartBtn" class="relative flex items-center gap-2 px-3 py-2 border rounded-full hover:shadow-sm">
+          <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 7h13l-2-7" />
+          </svg>
+          <span class="text-sm hidden sm:inline">Cart</span>
+          <span id="cartCount" class="absolute -top-2 -right-2 bg-brand text-white text-xs rounded-full px-2">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO (fixed: opaque background + subtle overlays) -->
+  <section class="relative bg-herobg overflow-hidden">
+    <!-- decorative pattern overlay (non-blocking) -->
+    <div class="absolute inset-0 hero-pattern pointer-events-none"></div>
+    <!-- very slight dark overlay for contrast -->
+    <div class="absolute inset-0 bg-black/5 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 py-16 lg:py-24 relative">
+      <div class="">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <!-- left -->
+          <div class="text-white space-y-6 px-2 md:px-0">
+            <div class="inline-block bg-brand px-4 py-2 rounded-md text-sm font-semibold text-white">Your Comfort is Our Business</div>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-white drop-shadow-sm">
+              We Bring the <br class="hidden md:block" /> Store to Your Door
+            </h1>
+            <p class="text-white/90 text-lg sm:text-xl">NOW! GET 25% OFF ON ALL ITEM</p>
+            <div class="flex items-center gap-4">
+              <a href="#" class="inline-flex items-center gap-2 bg-brand hover:bg-brand-dark text-white px-5 py-3 rounded-md font-semibold shadow">Shop Now</a>
+              <a href="#" class="inline-flex items-center gap-2 border border-white/30 text-white px-4 py-3 rounded-md text-sm">Explore Deals</a>
+            </div>
+          </div>
+
+          <!-- right image -->
+          <div class="flex justify-end">
+            <div class="w-full max-w-md">
+              <!-- placeholder image -->
+              <img src="https://www.collinsdictionary.com/images/full/supermarket_406913140_1000.jpg" alt="basket of vegetables" class="w-full rounded-lg shadow-2xl object-cover" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEAL OF THE DAY -->
+  <section class="max-w-7xl mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+      <div class="lg:col-span-2">
+        <h2 class="text-2xl font-extrabold">DEAL OF THE DAY</h2>
+        <p class="text-gray-500 mt-2">Adipiscing elit, sed do eiusmod tempor incididunt ut labore magna aliqua. Ut enim ad minim ven quis nostrud exercitation.</p>
+
+        <!-- product row -->
+        <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <!-- product card template -->
+          <article class="bg-white border rounded-lg p-4 group">
+            <div class="aspect-w-1 aspect-h-1 bg-gray-50 rounded overflow-hidden relative">
+              <img class="object-contain w-full h-full" src="https://d1n5l80rwxz6pi.cloudfront.net/general/blog/fresh-vegetables-in-uae.jpg" alt="vegetables" loading="lazy">
+              <button data-name="Fresh Vegetables" data-price="56" class="addToCart absolute left-1/2 -translate-x-1/2 bottom-3 bg-brand text-white text-sm px-3 py-2 rounded opacity-0 group-hover:opacity-100 transition">Add To Cart</button>
+            </div>
+            <div class="mt-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-semibold">Fresh Vegetables</h3>
+                <div class="text-lg font-bold">sh150</div>
+              </div>
+              <p class="text-xs text-gray-400 mt-1">Grocery & Staples</p>
+            </div>
+          </article>
+
+          <article class="bg-white border rounded-lg p-4 group">
+            <div class="aspect-w-1 aspect-h-1 bg-gray-50 rounded overflow-hidden relative">
+              <img class="object-contain w-full h-full" src="https://m.media-amazon.com/images/I/61X2Ov+z7XL._SL1080_.jpg" alt="jam jars" loading="lazy">
+              <button data-name="Mix Fruit Jam" data-price="46" class="addToCart absolute left-1/2 -translate-x-1/2 bottom-3 bg-brand text-white text-sm px-3 py-2 rounded opacity-0 group-hover:opacity-100 transition">Add To Cart</button>
+            </div>
+            <div class="mt-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-semibold">Mix Fruit Jam</h3>
+                <div class="text-lg font-bold">sh349</div>
+              </div>
+              <p class="text-xs text-gray-400 mt-1">Grocery & Staples</p>
+            </div>
+          </article>
+
+          <article class="bg-white border rounded-lg p-4 group">
+            <div class="aspect-w-1 aspect-h-1 bg-gray-50 rounded overflow-hidden relative">
+              <img class="object-contain w-full h-full" src="https://produits.bienmanger.com/36700-0w470h470_Organic_Red_Onion_From_Italy.jpg" alt="onions" loading="lazy">
+              <button data-name="Onions" data-price="16" class="addToCart absolute left-1/2 -translate-x-1/2 bottom-3 bg-brand text-white text-sm px-3 py-2 rounded opacity-0 group-hover:opacity-100 transition">Add To Cart</button>
+            </div>
+            <div class="mt-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-semibold">Onions</h3>
+                <div class="text-lg font-bold">sh16</div>
+              </div>
+              <p class="text-xs text-gray-400 mt-1">Grocery & Staples</p>
+            </div>
+          </article>
+
+          <article class="bg-white border rounded-lg p-4 group">
+            <div class="aspect-w-1 aspect-h-1 bg-gray-50 rounded overflow-hidden relative">
+              <img class="object-contain w-full h-full" src="https://www.simplejoy.com/wp-content/uploads/2025/04/oven-roasted-asparagus.jpg" alt="asparagus" loading="lazy">
+              <button data-name="Asparagus" data-price="32" class="addToCart absolute left-1/2 -translate-x-1/2 bottom-3 bg-brand text-white text-sm px-3 py-2 rounded opacity-0 group-hover:opacity-100 transition">Add To Cart</button>
+            </div>
+            <div class="mt-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-semibold">Asparagus</h3>
+                <div class="text-lg font-bold">sh32</div>
+              </div>
+              <p class="text-xs text-gray-400 mt-1">Grocery & Staples</p>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+
+      <!-- countdown -->
+      <div class="bg-white border rounded-lg p-6 text-center">
+        <div class="text-gray-500 uppercase text-sm">Offer ends in</div>
+        <div id="countdown" class="mt-4 flex justify-center gap-4 text-center text-gray-800">
+          <div>
+            <div id="days" class="text-3xl font-extrabold">00</div>
+            <div class="text-xs text-gray-400 mt-1">Days</div>
+          </div>
+          <div>
+            <div id="hours" class="text-3xl font-extrabold">00</div>
+            <div class="text-xs text-gray-400 mt-1">Hours</div>
+          </div>
+          <div>
+            <div id="minutes" class="text-3xl font-extrabold">00</div>
+            <div class="text-xs text-gray-400 mt-1">Minutes</div>
+          </div>
+          <div>
+            <div id="seconds" class="text-3xl font-extrabold">00</div>
+            <div class="text-xs text-gray-400 mt-1">Seconds</div>
+          </div>
+        </div>
+        <a href="#" class="mt-6 inline-block bg-brand text-white px-4 py-2 rounded">Grab Deal</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main product grid (sample) -->
+  <section class="max-w-7xl mx-auto px-4 py-10">
+    <h3 class="text-xl font-bold mb-6">Popular Products</h3>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+      <!-- product card (reused) -->
+      <!-- 1 -->
+      <div class="bg-white border rounded-lg p-4 group">
+        <div class="aspect-w-1 aspect-h-1 bg-gray-50 rounded overflow-hidden relative">
+          <img class="object-contain w-full h-full" src="https://www.incredibleseeds.ca/cdn/shop/products/Radish-Champion_6b2e14ab-3ed6-44c1-93d1-89108db0479f_1200x1200.jpg?v=1678153949" alt="">
+          <button data-name="Radish" data-price="60" class="addToCart absolute left-1/2 -translate-x-1/2 bottom-3 bg-brand text-white text-sm px-3 py-2 rounded opacity-0 group-hover:opacity-100 transition">Add To Cart</button>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <div>
+            <h4 class="text-sm font-semibold">Radish</h4>
+            <p class="text-xs text-gray-400">Grocery & Staples</p>
+          </div>
+          <div class="font-bold">$60</div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="bg-white border rounded-lg p-4 group">
+        <div class="aspect-w-1 aspect-h-1 bg-gray-50 rounded overflow-hidden relative">
+          <img class="object-contain w-full h-full" src="https://d16zmt6hgq1jhj.cloudfront.net/product/4103/Ndovu%20Home%20Baking%201%20Kg.jpg" alt="">
+          <button data-name="Sugarcanes" data-price="32" class="addToCart absolute left-1/2 -translate-x-1/2 bottom-3 bg-brand text-white text-sm px-3 py-2 rounded opacity-0 group-hover:opacity-100 transition">Add To Cart</button>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <div>
+            <h4 class="text-sm font-semibold">Ndovu Flour 2kg</h4>
+            <p class="text-xs text-gray-400">Foodstuffs</p>
+          </div>
+          <div class="font-bold">sh150</div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="bg-white border rounded-lg p-4 group">
+        <div class="aspect-w-1 aspect-h-1 bg-gray-50 rounded overflow-hidden relative">
+          <img class="object-contain w-full h-full" src="https://cdn.mafrservices.com/sys-master-root/hcb/h62/12456741765150/43636_Main.jpg" alt="flour" loading="lazy">
+          <button data-name="Tomatoes" data-price="14" class="addToCart absolute left-1/2 -translate-x-1/2 bottom-3 bg-brand text-white text-sm px-3 py-2 rounded opacity-0 group-hover:opacity-100 transition">Add To Cart</button>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <div>
+            <h4 class="text-sm font-semibold">EXE Flour 2kg</h4>
+            <p class="text-xs text-gray-400">Foodstuffs</p>
+          </div>
+          <div class="font-bold">sh29</div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="bg-white border rounded-lg p-4 group">
+        <div class="aspect-w-1 aspect-h-1 bg-gray-50 rounded overflow-hidden relative">
+          <img class="object-contain w-full h-full" src="https://www.atenzahomeappliances.co.ke/cdn/shop/files/hisense-43a4k-43-inch.webp?v=1735889797" alt="" loading="lazy">
+          <button data-name="Lettuce" data-price="10" class="addToCart absolute left-1/2 -translate-x-1/2 bottom-3 bg-brand text-white text-sm px-3 py-2 rounded opacity-0 group-hover:opacity-100 transition">Add To Cart</button>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <div>
+            <h4 class="text-sm font-semibold">Hisense 43inch</h4>
+            <p class="text-xs text-gray-400">Electronics</p>
+          </div>
+          <div class="font-bold">sh21,000</div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="bg-white border rounded-lg p-4 group">
+        <div class="aspect-w-1 aspect-h-1 bg-gray-50 rounded overflow-hidden relative">
+          <img class="object-contain w-full h-full" src="https://m.media-amazon.com/images/I/711+v+b17EL.jpg" alt="diary" loading="lazy">
+          <button data-name="Cucumber" data-price="7" class="addToCart absolute left-1/2 -translate-x-1/2 bottom-3 bg-brand text-white text-sm px-3 py-2 rounded opacity-0 group-hover:opacity-100 transition">Add To Cart</button>
+        </div>
+        <div class="mt-3 flex items-center justify-between">
+          <div>
+            <h4 class="text-sm font-semibold">Diary</h4>
+            <p class="text-xs text-gray-400">Stationary</p>
+          </div>
+          <div class="font-bold">sh200</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-50 border-t mt-12">
+    <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-gray-500">
+      © <span id="year"></span> Grocery Shopping. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- JavaScript: countdown + simple cart interactions -->
+  <script>
+    // Set future target for countdown (example: 30 days from now)
+    (function countdownInit() {
+      const endDate = new Date();
+      endDate.setDate(endDate.getDate() + 30); // 30 days from now
+      const daysEl = document.getElementById('days');
+      const hoursEl = document.getElementById('hours');
+      const minutesEl = document.getElementById('minutes');
+      const secondsEl = document.getElementById('seconds');
+
+      function update() {
+        const now = new Date();
+        const diff = endDate - now;
+        if (diff <= 0) {
+          daysEl.textContent = '00';
+          hoursEl.textContent = '00';
+          minutesEl.textContent = '00';
+          secondsEl.textContent = '00';
+          clearInterval(timer);
+          return;
+        }
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const m = Math.floor((diff / (1000 * 60)) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+        daysEl.textContent = String(d).padStart(2, '0');
+        hoursEl.textContent = String(h).padStart(2, '0');
+        minutesEl.textContent = String(m).padStart(2, '0');
+        secondsEl.textContent = String(s).padStart(2, '0');
+      }
+      update();
+      const timer = setInterval(update, 1000);
+    })();
+
+    // Simple cart behavior
+    (function cartInit() {
+      const cartCountEl = document.getElementById('cartCount');
+      const addBtns = document.querySelectorAll('.addToCart');
+      let count = 0;
+
+      function updateCount() {
+        cartCountEl.textContent = count;
+        // small pulse
+        cartCountEl.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.25)' }, { transform: 'scale(1)' }], { duration: 300 });
+      }
+
+      addBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          count++;
+          updateCount();
+
+          // small toast (accessible)
+          const name = btn.dataset.name || 'Item';
+          const price = btn.dataset.price ? '$' + btn.dataset.price : '';
+          showToast(`${name} ${price} added to cart`);
+        });
+      });
+
+      // toast
+      function showToast(msg = '') {
+        const existing = document.getElementById('siteToast');
+        if (existing) existing.remove();
+        const t = document.createElement('div');
+        t.id = 'siteToast';
+        t.setAttribute('role', 'status');
+        t.className = 'fixed bottom-6 right-6 bg-gray-900 text-white px-4 py-2 rounded shadow-lg';
+        t.textContent = msg;
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 2200);
+      }
+    })();
+
+    // Set year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
